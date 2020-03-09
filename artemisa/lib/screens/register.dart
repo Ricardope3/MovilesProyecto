@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
-  Login();
+class Register extends StatefulWidget {
+  Register();
 
   @override
-  _LoginState createState() => _LoginState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   String email = "";
   String password = "";
   @override
@@ -20,24 +20,21 @@ class _LoginState extends State<Login> {
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         body: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            child: Stack(
-              children: <Widget>[
-                Container(
+          child: Stack(
+            children: <Widget>[
+              Container(
+                height: height,
+                width: width,
+              ),
+              BackgroundContainer(width: width, height: height),
+              Positioned(
+                top: height * 0.5,
+                child: LoginWidget(
                   height: height,
                   width: width,
                 ),
-                BackgroundContainer(width: width, height: height),
-                Positioned(
-                  top: height * 0.6,
-                  child: LoginWidget(
-                    height: height,
-                    width: width,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -53,12 +50,12 @@ class BackgroundContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height * 0.68,
+      height: height * 0.6,
       width: width,
       decoration: BoxDecoration(
         image: DecorationImage(
             image: AssetImage(
-              "assets/images/login0.jpeg",
+              "assets/images/login10.jpeg",
             ),
             fit: BoxFit.cover),
       ),
@@ -70,7 +67,7 @@ class BackgroundContainer extends StatelessWidget {
               fontSize: 50,
               fontWeight: FontWeight.bold,
               letterSpacing: 1,
-              color: Colors.white),
+              color: Colors.black),
         ),
       ),
     );
@@ -85,7 +82,7 @@ class LoginWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height * 0.4,
+      height: height * 0.5,
       width: width,
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
@@ -141,69 +138,61 @@ class LoginWidget extends StatelessWidget {
               child: Transform.translate(
                 offset: Offset(0, -40),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Please sign in",
+                      "Create Account",
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                     ),
                     Form(
-                      child: Column(
-                        children: <Widget>[
-                          TextFormField(
-                            onChanged: (val) {},
-                            decoration: new InputDecoration(
-                              hintText: 'E-mail',
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 40.0),
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              onChanged: (val) {},
+                              decoration: new InputDecoration(
+                                hintText: 'Nombre',
+                              ),
                             ),
-                          ),
-                          TextFormField(
-                            obscureText: true,
-                            onChanged: (val) {},
-                            style: TextStyle(letterSpacing: 7),
-                            decoration: new InputDecoration(
-                              hintText: 'Password',
-                              hintStyle: TextStyle(letterSpacing: 0),
+                            SizedBox(
+                              height: 10,
                             ),
-                          ),
-                        ],
+                            TextFormField(
+                              onChanged: (val) {},
+                              decoration: new InputDecoration(
+                                hintText: 'Apellido',
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              keyboardType: TextInputType.emailAddress,
+                              onChanged: (val) {},
+                              decoration: new InputDecoration(
+                                hintText: 'E-mail',
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              obscureText: true,
+                              onChanged: (val) {},
+                              style: TextStyle(letterSpacing: 7),
+                              decoration: new InputDecoration(
+                                hintText: 'Password',
+                                hintStyle: TextStyle(letterSpacing: 0),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            //height: 55,
-                            child: Text(
-                              "Forgot Password",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.w600,
-                                  decoration: TextDecoration.underline),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushReplacementNamed(context, "/register");
-                          },
-                          child: Container(
-                            //height: 55,
-                            child: Text(
-                              "Sign up",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.w600,
-                                  decoration: TextDecoration.underline),
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),
