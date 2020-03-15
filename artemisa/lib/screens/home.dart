@@ -164,82 +164,99 @@ class LocalListing extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     print(height);
-    return Container(
-      height: height * 0.25,
-      margin: EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
-      child: Row(
-        children: <Widget>[
-          Container(
-            height: height * 0.2055,
-            width: height * 0.2055,
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(40),
-                topLeft: Radius.circular(40),
-              ),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(
-                Radius.circular(40),
-              ),
-              child: Image.network(
-                link,
-                fit: BoxFit.cover,
-              ),
-            ),
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, a, b) => Listing(
+            link: link,
+            tag: link + "local",
           ),
-          Expanded(
-            child: Container(
+        ),
+      ),
+      child: Container(
+        height: height * 0.25,
+        margin: EdgeInsets.symmetric(
+          horizontal: 20,
+        ),
+        child: Row(
+          children: <Widget>[
+            Container(
+              height: height * 0.2055,
+              width: height * 0.2055,
               decoration: BoxDecoration(
                 color: Colors.grey[300],
-                borderRadius: BorderRadius.horizontal(
-                  right: Radius.circular(40),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(40),
+                  topLeft: Radius.circular(40),
                 ),
               ),
-              margin: EdgeInsets.symmetric(
-                vertical: height * 0.022,
-              ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.home,
-                      color: Theme.of(context).accentColor,
-                      size: 15,
-                    ),
-                    Text(
-                      "Casa en San Isidro",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 19,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 7,
-                    ),
-                    Text(
-                      "\$5000",
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontSize: 15,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 7,
-                    ),
-                    Text("A 9 Km de ti")
-                  ],
+              child: Hero(
+                tag: link + "local",
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(40),
+                  ),
+                  child: Image.network(
+                    link,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.horizontal(
+                    right: Radius.circular(40),
+                  ),
+                ),
+                margin: EdgeInsets.symmetric(
+                  vertical: height * 0.022,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 20.0, horizontal: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Icon(
+                        FontAwesomeIcons.home,
+                        color: Theme.of(context).accentColor,
+                        size: 15,
+                      ),
+                      SizedBox(
+                        height: 7,
+                      ),
+                      Text(
+                        "Casa en San Isidro",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 19,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 7,
+                      ),
+                      Text(
+                        "\$5000",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 15,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 7,
+                      ),
+                      Text("Cuarto con baño propio"),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -258,6 +275,7 @@ class PopularListing extends StatelessWidget {
         PageRouteBuilder(
           pageBuilder: (context, a, b) => Listing(
             link: casas[index],
+            tag: casas[index] + "popular",
           ),
         ),
       ),
@@ -266,7 +284,7 @@ class PopularListing extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Hero(
-              tag: casas[index],
+              tag: casas[index] + "popular",
               child: ClipRRect(
                 borderRadius: BorderRadius.all(
                   Radius.circular(30),

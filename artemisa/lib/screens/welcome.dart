@@ -6,7 +6,7 @@ class Welcome extends StatefulWidget {
   _WelcomeState createState() => _WelcomeState();
 }
 
-class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
+class _WelcomeState extends State<Welcome>  {
   List<Map> paginas = [
     {
       "image": "assets/images/welcome1.png",
@@ -16,13 +16,13 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
     },
     {
       "image": "assets/images/welcome2.png",
-      "title": "A pinche \nperro desmadroso",
+      "title": "Lorem impsum \ndolor atem",
       "subtitle":
           "Health goth skateboard freegan aesthetic mustache tote bag kitsch brunch mumblecore pug knausgaard."
     },
     {
       "image": "assets/images/welcome3.png",
-      "title": "Alchile esta \ncerrado jsjsjsj",
+      "title": "Lorem impsum \ndolor atem jsjsjsj",
       "subtitle":
           "Health goth skateboard freegan aesthetic mustache tote bag kitsch brunch mumblecore pug knausgaard."
     },
@@ -58,7 +58,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
+        value: SystemUiOverlayStyle.dark,
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -172,7 +172,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                Navigator.pushReplacementNamed(context, "/register");
+                Navigator.pushReplacementNamed(context, "/login");
               },
               child: Text(
                 "Crear cuenta",

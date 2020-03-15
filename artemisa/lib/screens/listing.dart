@@ -4,7 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Listing extends StatelessWidget {
   String link;
-  Listing({this.link});
+  String tag;
+  Listing({this.link, this.tag});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class Listing extends StatelessWidget {
                 child: Stack(
                   children: <Widget>[
                     Hero(
-                      tag: link,
+                      tag: tag,
                       child: ClipRRect(
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(60),
