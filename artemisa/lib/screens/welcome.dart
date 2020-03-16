@@ -6,7 +6,7 @@ class Welcome extends StatefulWidget {
   _WelcomeState createState() => _WelcomeState();
 }
 
-class _WelcomeState extends State<Welcome>  {
+class _WelcomeState extends State<Welcome> {
   List<Map> paginas = [
     {
       "image": "assets/images/welcome1.png",

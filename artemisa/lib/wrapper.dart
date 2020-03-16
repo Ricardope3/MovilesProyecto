@@ -35,17 +35,17 @@ class _WrapperState extends State<Wrapper> {
     );
   }
 
-Widget _renderCorrectWidget(){
-  if(isNewUser){
-    return Welcome();
-  }else{
-    if(authenticated){
-      return Home();
-    }else{
-      return Register();
+  Widget _renderCorrectWidget() {
+    if (isNewUser) {
+      return Welcome();
+    } else {
+      if (authenticated) {
+        return Home();
+      } else {
+        return Register();
+      }
     }
   }
-}
 
   @override
   void initState() {

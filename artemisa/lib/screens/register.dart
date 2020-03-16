@@ -4,7 +4,7 @@ import 'package:artemisa/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loading_animations/loading_animations.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class Register extends StatefulWidget {
   Register();
@@ -16,69 +16,64 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   String email = "";
   String password = "";
-  RegisterBloc registerBloc;
+  //RegisterBloc registerBloc;
   @override
   Widget build(BuildContext context) {
-    registerBloc = BlocProvider.of<RegisterBloc>(context);
+    //registerBloc = BlocProvider.of<RegisterBloc>(context);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    return Center(
-      child: Container(
-        child: Scaffold(
-          backgroundColor: Theme.of(context).backgroundColor,
-          body: SingleChildScrollView(
-            child: Container(
-              child: BlocBuilder<RegisterBloc, RegisterState>(
-                builder: (context, state) {
-                  if (state is RegisterInitial) {
-                    return buildRegisterWidget(height, width);
-                  } else if (state is Registering) {
-                    return buildRegisteringWidget(context);
-                  } else if (state is Registered) {
-                    return buildRegisteredWidget();
-                  }
-                  return buildRegisterWidget(height, width);
-                },
-              ),
-            ),
-          ),
-        ),
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: BlocBuilder<RegisterBloc, RegisterState>(
+        builder: (context, state) {
+          if (state is RegisterInitial) {
+            return buildRegisterWidget(height, width);
+          } else if (state is Registering) {
+            return buildRegisteringWidget(context);
+          } else if (state is Registered) {
+            return buildRegisteredWidget();
+          }
+          return buildRegisterWidget(height, width);
+        },
       ),
     );
   }
 
   Center buildRegisteredWidget() {
-    return Center(heightFactor: 20, child: Text("Redireccionando"));
+    return Center(child: Text("Redireccionando"));
   }
 
-  Center buildRegisteringWidget(BuildContext context) {
+ Center buildRegisteringWidget(BuildContext context) {
     return Center(
-      heightFactor: 10,
-      child: LoadingDoubleFlipping.circle(
-        backgroundColor: Theme.of(context).accentColor,
-        borderColor: Theme.of(context).accentColor,
-        size: 80.0,
+      child: Container(
+        height: 60,
+        child: LoadingIndicator(
+          indicatorType: Indicator.pacman,
+          color: Theme.of(context).accentColor,
+        ),
       ),
     );
   }
 
-  Stack buildRegisterWidget(double height, double width) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          height: height,
-          width: width,
-        ),
-        BackgroundContainer(width: width, height: height),
-        Positioned(
-          top: height * 0.5,
-          child: LoginWidget(
+  Widget buildRegisterWidget(double height, double width) {
+    return SingleChildScrollView(
+      child: Stack(
+        children: <Widget>[
+          Container(
             height: height,
             width: width,
           ),
-        ),
-      ],
+          BackgroundContainer(width: width, height: height),
+          Positioned(
+            top: height * 0.5,
+            child: LoginWidget(
+              height: height,
+              width: width,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:artemisa/Repositories/register_respository.dart';
 import 'package:artemisa/models/user.dart';
 import 'package:bloc/bloc.dart';
