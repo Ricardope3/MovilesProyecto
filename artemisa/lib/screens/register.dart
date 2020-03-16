@@ -1,5 +1,4 @@
 import 'package:artemisa/Authentication/register_bloc.dart';
-import 'package:artemisa/Repositories/register_respository.dart';
 import 'package:artemisa/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -79,8 +78,7 @@ class _RegisterState extends State<Register> {
 }
 
 class BackgroundContainer extends StatelessWidget {
-  double width;
-  double height;
+  final double width,height;
   BackgroundContainer({this.width, this.height});
 
   @override

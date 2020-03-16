@@ -202,7 +202,7 @@ class _WelcomeState extends State<Welcome> {
 }
 
 class PageWidget extends StatelessWidget {
-  Map content;
+  final Map content;
   PageWidget({this.content});
 
   @override

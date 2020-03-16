@@ -78,8 +78,8 @@ class _LoginState extends State<Login> {
 }
 
 class BackgroundContainer extends StatelessWidget {
-  double width;
-  double height;
+  final double width;
+  final double height;
   BackgroundContainer({this.width, this.height});
 
   @override
@@ -109,9 +109,9 @@ class BackgroundContainer extends StatelessWidget {
   }
 }
 
+
 class LoginWidget extends StatelessWidget {
-  double width;
-  double height;
+  final double width, height;
   LoginWidget({this.height, this.width});
   RegisterBloc registerBloc;
   @override

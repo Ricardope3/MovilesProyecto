@@ -5,16 +5,8 @@ abstract class RegisterEvent extends Equatable {
 }
 
 class OnRegister extends RegisterEvent {
-/*   User user2 = User(
-      name: "Ricardo",
-      email: "ricky.foals@gmail.com",
-      gender: "Male",
-      language: "es",
-      lastname: "Espinoza",
-      password: "123",
-      passwordConfirmation: "123"); */
 
-  User user;
+  final User user;
   OnRegister({
     @required this.user,
   });

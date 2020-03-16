@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Listing extends StatelessWidget {
-  String link;
-  String tag;
+  final String link,tag;
   Listing({this.link, this.tag});
 
   @override

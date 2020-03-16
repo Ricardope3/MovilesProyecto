@@ -15,7 +15,7 @@ class Registering extends RegisterState {
 }
 
 class Registered extends RegisterState {
-  User user;
+  final User user;
   Registered({
     @required this.user,
   });
@@ -24,7 +24,7 @@ class Registered extends RegisterState {
 }
 
 class RegisterError extends RegisterState {
-  String message;
+  final String message;
   RegisterError({
     @required this.message,
   });
