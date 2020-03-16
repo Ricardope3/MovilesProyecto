@@ -163,7 +163,6 @@ class LocalListing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    print(height);
     return GestureDetector(
       onTap: () => Navigator.push(
         context,

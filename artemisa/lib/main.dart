@@ -3,15 +3,10 @@ import 'package:artemisa/screens/login.dart';
 import 'package:artemisa/screens/register.dart';
 import 'package:artemisa/wrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
 
 Future<void> main() async {
   runApp(MyApp());
-  final appDocumentDir = await getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir.path);
-  var box = await Hive.openBox('users');
-  agregarUsuarioNuevo();
+
 }
 
 class MyApp extends StatelessWidget {
@@ -31,18 +26,12 @@ class MyApp extends StatelessWidget {
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/login': (context) => Login(),
-        // When navigating to the "/second" route, build the SecondScreen widget.
         '/register': (context) => Register(),
         '/wrapper': (context) => Wrapper(),
         '/home': (context) => Home(),
-      },
+              },
     );
   }
 }
 
-void agregarUsuarioNuevo() async {
-  var box = await Hive.openBox('users');
-  if (!box.containsKey("visited")) {
-    box.put("visited", 1);
-  }
-}
+

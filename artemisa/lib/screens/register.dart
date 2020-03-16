@@ -1,4 +1,4 @@
-import 'package:artemisa/Authentication/bloc/register_bloc.dart';
+import 'package:artemisa/Authentication/register_bloc.dart';
 import 'package:artemisa/Repositories/register_respository.dart';
 import 'package:artemisa/models/user.dart';
 import 'package:flutter/cupertino.dart';
@@ -49,8 +49,7 @@ class _RegisterState extends State<Register> {
   }
 
   Center buildRegisteredWidget() {
-    return Center(
-                    heightFactor: 20, child: Text("Redireccionando"));
+    return Center(heightFactor: 20, child: Text("Redireccionando"));
   }
 
   Center buildRegisteringWidget(BuildContext context) {

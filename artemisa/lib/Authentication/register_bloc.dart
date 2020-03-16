@@ -21,7 +21,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     if (event is OnRegister) {
       yield Registering();
       try {
-        User user = await userRepository.registerUser(event.user);
+        User user = await userRepository.register(event.user);
         yield Registered(user: user);
       } catch (e) {
         print(e.toString());

@@ -1,10 +1,11 @@
-import 'package:artemisa/Authentication/bloc/register_bloc.dart';
 import 'package:artemisa/screens/home.dart';
+import 'package:artemisa/screens/login.dart';
 import 'package:artemisa/screens/register.dart';
 import 'package:artemisa/screens/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'Authentication/register_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Wrapper extends StatefulWidget {
@@ -14,59 +15,43 @@ class Wrapper extends StatefulWidget {
 
 class _WrapperState extends State<Wrapper> {
   bool authenticated = false;
+  bool isNewUser = false;
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      initialData: Hive.openBox("users"),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasError) {
-            return Text("Error");
+    return BlocProvider(
+      create: (BuildContext context) => RegisterBloc(),
+      child: BlocListener<RegisterBloc, RegisterState>(
+        listener: (context, state) {
+          if (state is Registered) {
+            setState(() {
+              authenticated = true;
+            });
           }
-          return BlocProvider(
-            create: (BuildContext context) => RegisterBloc(),
-            child: BlocListener<RegisterBloc, RegisterState>(
-              listener: (context, state) {
-                print(state.toString());
-                if (state is Registered) {
-                  setState(() {
-                    authenticated = true;
-                  });
-                }
-              },
-              child: Container(
-                child: authenticated ? Home() : Register(),
-              ),
-            ),
-          );
-        } else {
-          return BlocProvider(
-            create: (BuildContext context) => RegisterBloc(),
-            child: BlocListener<RegisterBloc, RegisterState>(
-              listener: (context, state) {
-                print(state.toString());
-                if (state is Registered) {
-                  setState(() {
-                    authenticated = true;
-                  });
-                }
-              },
-              child: Container(
-                child: authenticated ? Home() : Register(),
-              ),
-            ),
-          );
-        }
-        ;
-      },
+        },
+        child: Container(
+          child: isNewUser ? Welcome() : Home(),
+        ),
+      ),
     );
   }
 
-/*   Future<Box> inicializarBox() async {
+  @override
+  void initState() {
+    super.initState();
+    _checkIfIsNewUser();
+  }
+
+  void _checkIfIsNewUser() async {
     final appDocumentDir = await getApplicationDocumentsDirectory();
-
     Hive.init(appDocumentDir.path);
-
-    return Hive.openBox("users");
-  } */
+    var box = await Hive.openBox('newUserBox');
+    int flag = box.get('newUser');
+    if (flag == null) {
+      //Is new User
+      setState(() {
+        isNewUser = true;
+      });
+      box.put("newUser", 1);
+    }
+  }
 }
