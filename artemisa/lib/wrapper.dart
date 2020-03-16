@@ -29,11 +29,23 @@ class _WrapperState extends State<Wrapper> {
           }
         },
         child: Container(
-          child: isNewUser ? Welcome() : Home(),
+          child: _renderCorrectWidget(),
         ),
       ),
     );
   }
+
+Widget _renderCorrectWidget(){
+  if(isNewUser){
+    return Welcome();
+  }else{
+    if(authenticated){
+      return Home();
+    }else{
+      return Register();
+    }
+  }
+}
 
   @override
   void initState() {
