@@ -3,8 +3,16 @@ import 'package:artemisa/screens/login.dart';
 import 'package:artemisa/screens/register.dart';
 import 'package:artemisa/wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  runApp(MyApp());
+  final appDocumentDir = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir.path);
+  var box = await Hive.openBox('users');
+  agregarUsuarioNuevo();
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -29,5 +37,12 @@ class MyApp extends StatelessWidget {
         '/home': (context) => Home(),
       },
     );
+  }
+}
+
+void agregarUsuarioNuevo() async {
+  var box = await Hive.openBox('users');
+  if (!box.containsKey("visited")) {
+    box.put("visited", 1);
   }
 }

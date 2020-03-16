@@ -176,6 +176,17 @@ class LocalListing extends StatelessWidget {
       ),
       child: Container(
         height: height * 0.25,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(40)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black38,
+              spreadRadius: -20,
+              blurRadius: 20,
+              offset: Offset(0,20),              
+            ),
+          ],
+        ),
         margin: EdgeInsets.symmetric(
           horizontal: 20,
         ),
@@ -185,7 +196,7 @@ class LocalListing extends StatelessWidget {
               height: height * 0.2055,
               width: height * 0.2055,
               decoration: BoxDecoration(
-                color: Colors.grey[300],
+                color: Colors.grey.shade200,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(40),
                   topLeft: Radius.circular(40),
@@ -197,9 +208,26 @@ class LocalListing extends StatelessWidget {
                   borderRadius: BorderRadius.all(
                     Radius.circular(40),
                   ),
-                  child: Image.network(
-                    link,
-                    fit: BoxFit.cover,
+                  child: Stack(
+                    children: <Widget>[
+                      Image.network(
+                        link,
+                        fit: BoxFit.cover,
+                        height: double.infinity,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.black54,
+                              Colors.transparent,
+                            ],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment(0, -0.05),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -207,7 +235,7 @@ class LocalListing extends StatelessWidget {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  color: Colors.grey.shade200,
                   borderRadius: BorderRadius.horizontal(
                     right: Radius.circular(40),
                   ),
@@ -217,7 +245,9 @@ class LocalListing extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 20.0, horizontal: 15),
+                    vertical: 10.0,
+                    horizontal: 15,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -249,7 +279,11 @@ class LocalListing extends StatelessWidget {
                       SizedBox(
                         height: 7,
                       ),
-                      Text("Cuarto con baño propio"),
+                      Text(
+                        "Cuarto con baño propio",
+                        style: TextStyle(),
+                        overflow: TextOverflow.fade,
+                      ),
                     ],
                   ),
                 ),
@@ -305,7 +339,10 @@ class PopularListing extends StatelessWidget {
                   Radius.circular(30),
                 ),
                 gradient: LinearGradient(
-                  colors: [Colors.black87, Colors.transparent],
+                  colors: [
+                    Colors.black87,
+                    Colors.transparent,
+                  ],
                   begin: Alignment.bottomCenter,
                   end: Alignment(0, -0.05),
                 ),

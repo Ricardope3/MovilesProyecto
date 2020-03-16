@@ -1,5 +1,10 @@
+import 'package:artemisa/Authentication/bloc/register_bloc.dart';
+import 'package:artemisa/Repositories/register_respository.dart';
+import 'package:artemisa/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animations/loading_animations.dart';
 
 class Register extends StatefulWidget {
   Register();
@@ -11,33 +16,70 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   String email = "";
   String password = "";
+  RegisterBloc registerBloc;
   @override
   Widget build(BuildContext context) {
+    registerBloc = BlocProvider.of<RegisterBloc>(context);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    return Container(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: SingleChildScrollView(
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: height,
-                width: width,
+    return Center(
+      child: Container(
+        child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: SingleChildScrollView(
+            child: Container(
+              child: BlocBuilder<RegisterBloc, RegisterState>(
+                builder: (context, state) {
+                  if (state is RegisterInitial) {
+                    return buildRegisterWidget(height, width);
+                  } else if (state is Registering) {
+                    return buildRegisteringWidget(context);
+                  } else if (state is Registered) {
+                    return buildRegisteredWidget();
+                  }
+                  return buildRegisterWidget(height, width);
+                },
               ),
-              BackgroundContainer(width: width, height: height),
-              Positioned(
-                top: height * 0.5,
-                child: LoginWidget(
-                  height: height,
-                  width: width,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  Center buildRegisteredWidget() {
+    return Center(
+                    heightFactor: 20, child: Text("Redireccionando"));
+  }
+
+  Center buildRegisteringWidget(BuildContext context) {
+    return Center(
+      heightFactor: 10,
+      child: LoadingDoubleFlipping.circle(
+        backgroundColor: Theme.of(context).accentColor,
+        borderColor: Theme.of(context).accentColor,
+        size: 80.0,
+      ),
+    );
+  }
+
+  Stack buildRegisterWidget(double height, double width) {
+    return Stack(
+      children: <Widget>[
+        Container(
+          height: height,
+          width: width,
+        ),
+        BackgroundContainer(width: width, height: height),
+        Positioned(
+          top: height * 0.5,
+          child: LoginWidget(
+            height: height,
+            width: width,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -78,9 +120,10 @@ class LoginWidget extends StatelessWidget {
   double width;
   double height;
   LoginWidget({this.height, this.width});
-
+  RegisterBloc registerBloc;
   @override
   Widget build(BuildContext context) {
+    registerBloc = BlocProvider.of<RegisterBloc>(context);
     return Container(
       height: height * 0.5,
       width: width,
@@ -111,7 +154,21 @@ class LoginWidget extends StatelessWidget {
                       Radius.circular(50),
                     ),
                     splashColor: Colors.white,
-                    onTap: () {},
+                    onTap: () {
+                      registerBloc.add(
+                        OnRegister(
+                          user: User(
+                            name: "Ricardo",
+                            email: "ricky.foals@gmail.com",
+                            gender: "Male",
+                            language: "es",
+                            lastname: "Espinoza",
+                            password: "123",
+                            passwordConfirmation: "123",
+                          ),
+                        ),
+                      );
+                    },
                     child: Container(
                       width: 95,
                       height: 95,
@@ -145,10 +202,10 @@ class LoginWidget extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                     ),
-                    Form(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 40.0),
+                    Expanded(
+                      child: Form(
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             TextFormField(
                               onChanged: (val) {},
