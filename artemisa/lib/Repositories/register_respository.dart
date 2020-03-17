@@ -1,4 +1,4 @@
-import 'package:artemisa/models/user.dart';
+import 'package:Artemisa/models/user.dart';
 
 abstract class RegisterRepository {
   Future<User> register(User user);

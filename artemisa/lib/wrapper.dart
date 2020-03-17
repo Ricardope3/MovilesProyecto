@@ -1,6 +1,6 @@
-import 'package:artemisa/screens/home.dart';
-import 'package:artemisa/screens/register.dart';
-import 'package:artemisa/screens/welcome.dart';
+import 'package:Artemisa/screens/home.dart';
+import 'package:Artemisa/screens/register.dart';
+import 'package:Artemisa/screens/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';

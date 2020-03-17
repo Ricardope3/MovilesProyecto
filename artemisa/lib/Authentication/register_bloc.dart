@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:artemisa/Repositories/register_respository.dart';
-import 'package:artemisa/models/user.dart';
+import 'package:Artemisa/Repositories/register_respository.dart';
+import 'package:Artemisa/models/user.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
