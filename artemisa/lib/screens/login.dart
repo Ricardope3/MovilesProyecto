@@ -2,6 +2,7 @@ import 'package:Artemisa/Authentication/register_bloc.dart';
 import 'package:Artemisa/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
@@ -106,7 +107,6 @@ class BackgroundContainer extends StatelessWidget {
     );
   }
 }
-
 
 class LoginWidget extends StatelessWidget {
   final double width, height;
@@ -234,8 +234,12 @@ class LoginWidget extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushReplacementNamed(
-                                context, "/register");
+                            SchedulerBinding.instance.addPostFrameCallback((_) {
+                              Navigator.pushReplacementNamed(
+                                context,
+                                "/register",
+                              );
+                            });
                           },
                           child: Container(
                             //height: 55,

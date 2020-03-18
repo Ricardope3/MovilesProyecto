@@ -7,6 +7,8 @@ import 'package:hive/hive.dart';
 import 'Authentication/register_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'screens/login.dart';
+
 class Wrapper extends StatefulWidget {
   @override
   _WrapperState createState() => _WrapperState();
@@ -41,7 +43,7 @@ class _WrapperState extends State<Wrapper> {
       if (authenticated) {
         return Home();
       } else {
-        return Register();
+        return Login();
       }
     }
   }
