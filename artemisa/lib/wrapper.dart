@@ -1,4 +1,4 @@
-import 'package:artemisa/screens/home.dart';
+import 'package:artemisa/navWrapper.dart';
 import 'package:artemisa/screens/register.dart';
 import 'package:artemisa/screens/welcome.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class _WrapperState extends State<Wrapper> {
       return Welcome();
     } else {
       if (authenticated) {
-        return Home();
+        return NavWrapper();
       } else {
         return Register();
       }

@@ -1,3 +1,7 @@
+import 'package:artemisa/navWrapper.dart';
+import 'package:artemisa/screens/profile.dart';
+import 'package:artemisa/screens/chats.dart';
+import 'package:artemisa/screens/bookings.dart';
 import 'package:artemisa/screens/home.dart';
 import 'package:artemisa/screens/login.dart';
 import 'package:artemisa/screens/register.dart';
@@ -29,6 +33,10 @@ class MyApp extends StatelessWidget {
         '/register': (context) => Register(),
         '/wrapper': (context) => Wrapper(),
         '/home': (context) => Home(),
+        '/bookings': (context) => Bookings(),
+        '/chats': (context) => Chats(),
+        '/profile': (context) => Profile(),
+        '/navWrapper': (context) => NavWrapper(),
               },
     );
   }

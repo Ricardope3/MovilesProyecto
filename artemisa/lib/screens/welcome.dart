@@ -184,7 +184,7 @@ class _WelcomeState extends State<Welcome> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushReplacementNamed(context, "/home");
+                Navigator.pushReplacementNamed(context, "/navWrapper");
               },
               child: Text(
                 "Continuar sin cuenta",
