@@ -1,6 +1,6 @@
-import 'package:Artemisa/screens/home.dart';
 import 'package:Artemisa/screens/register.dart';
 import 'package:Artemisa/screens/welcome.dart';
+import 'package:Artemisa/navWrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
@@ -41,7 +41,7 @@ class _WrapperState extends State<Wrapper> {
       return Welcome();
     } else {
       if (authenticated) {
-        return Home();
+        return NavWrapper();
       } else {
         return Register();
       }

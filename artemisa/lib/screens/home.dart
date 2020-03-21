@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../util/contentView.dart';
 
 import 'listing.dart';
 
@@ -19,125 +18,123 @@ class Home extends StatelessWidget {
       "https://images.unsplash.com/photo-1501635238895-63f29cfc06b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1651&q=80",
       "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
     ];
-    return ContentView(
-      content: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top: 50, right: 30),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15),
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 50, right: 30),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15),
+                  ),
+                  child: CircleAvatar(
+                    child: Image.network(
+                        "https://randomuser.me/api/portraits/men/20.jpg"),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                top: 10,
+                bottom: 10,
+              ),
+              child: Text(
+                "Hola Ricardo",
+                style: TextStyle(
+                  fontWeight: FontWeight.w200,
+                  fontSize: 30,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                bottom: 40,
+              ),
+              child: Text(
+                "Encuentra una casa",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                bottom: 40,
+                right: 20,
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                child: TextFormField(
+                  onChanged: (val) {},
+                  decoration: new InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.search,
                     ),
-                    child: CircleAvatar(
-                      child: Image.network(
-                          "https://randomuser.me/api/portraits/men/20.jpg"),
-                    ),
+                    hintText: '¿Dónde estás buscando?',
+                    border: InputBorder.none,
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 20,
-                  top: 10,
-                  bottom: 10,
-                ),
-                child: Text(
-                  "Hola Ricardo",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w200,
-                    fontSize: 30,
-                  ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, bottom: 20),
+              child: Text(
+                "Popular",
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 20,
-                  bottom: 40,
-                ),
-                child: Text(
-                  "Encuentra una casa",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 20,
-                  bottom: 40,
-                  right: 20,
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                  ),
-                  child: TextFormField(
-                    onChanged: (val) {},
-                    decoration: new InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.search,
-                      ),
-                      hintText: '¿Dónde estás buscando?',
-                      border: InputBorder.none,
-                    ),
-                  ),
+            ),
+            Container(
+              height: height * 0.38,
+              child: ListView.builder(
+                  padding: EdgeInsets.only(left: 20),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: casas.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return PopularListing(
+                      casas: casas,
+                      index: index,
+                    );
+                  }),
+            ),
+            SizedBox(
+              height: 6000 / height,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, top: 35),
+              child: Text(
+                "Cerca de ti",
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, bottom: 20),
-                child: Text(
-                  "Popular",
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Container(
-                height: height * 0.38,
-                child: ListView.builder(
-                    padding: EdgeInsets.only(left: 20),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: casas.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return PopularListing(
-                        casas: casas,
-                        index: index,
-                      );
-                    }),
-              ),
-              SizedBox(
-                height: 6000 / height,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, top: 35),
-                child: Text(
-                  "Cerca de ti",
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Column(
-                children: _localListingBuilder(casas),
-              ),
-            ],
-          ),
+            ),
+            Column(
+              children: _localListingBuilder(casas),
+            ),
+          ],
         ),
       ),
     );

@@ -1,5 +1,9 @@
+import 'package:Artemisa/navWrapper.dart';
+import 'package:Artemisa/screens/bookings.dart';
+import 'package:Artemisa/screens/chats.dart';
 import 'package:Artemisa/screens/home.dart';
 import 'package:Artemisa/screens/login.dart';
+import 'package:Artemisa/screens/profile.dart';
 import 'package:Artemisa/screens/register.dart';
 import 'package:flutter/material.dart';
 
@@ -18,4 +22,8 @@ final Map<String, Widget Function(BuildContext)> routes = {
   '/register': (context) => Register(),
   '/wrapper': (context) => Wrapper(),
   '/home': (context) => Home(),
+  '/bookings': (context) => Bookings(),
+  '/chats': (context) => Chats(),
+  '/profile': (context) => Profile(),
+  '/navWrapper': (context) => NavWrapper()
 };
