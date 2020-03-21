@@ -1,5 +1,6 @@
 import 'package:Artemisa/Authentication/register_bloc.dart';
 import 'package:Artemisa/models/user.dart';
+import 'package:Artemisa/screens/register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -191,8 +192,10 @@ class LoginWidget extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       "Please sign in",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     Form(
                       child: Column(
@@ -209,7 +212,9 @@ class LoginWidget extends StatelessWidget {
                             style: TextStyle(letterSpacing: 7),
                             decoration: new InputDecoration(
                               hintText: 'Password',
-                              hintStyle: TextStyle(letterSpacing: 0),
+                              hintStyle: TextStyle(
+                                letterSpacing: 0,
+                              ),
                             ),
                           ),
                         ],
@@ -225,31 +230,36 @@ class LoginWidget extends StatelessWidget {
                             child: Text(
                               "Forgot Password",
                               style: TextStyle(
-                                  fontSize: 15,
-                                  color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.w600,
-                                  decoration: TextDecoration.underline),
+                                fontSize: 15,
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w600,
+                                decoration: TextDecoration.underline,
+                              ),
                             ),
                           ),
                         ),
                         GestureDetector(
                           onTap: () {
-                            SchedulerBinding.instance.addPostFrameCallback((_) {
-                              Navigator.pushReplacementNamed(
-                                context,
-                                "/register",
-                              );
-                            });
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => BlocProvider.value(
+                                  value: registerBloc,
+                                  child: Register(),
+                                ),
+                              ),
+                            );
                           },
                           child: Container(
                             //height: 55,
                             child: Text(
                               "Sign up",
                               style: TextStyle(
-                                  fontSize: 15,
-                                  color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.w600,
-                                  decoration: TextDecoration.underline),
+                                fontSize: 15,
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w600,
+                                decoration: TextDecoration.underline,
+                              ),
                             ),
                           ),
                         ),

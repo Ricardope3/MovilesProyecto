@@ -3,7 +3,6 @@ import 'package:Artemisa/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class RegisterWidget extends StatelessWidget {
   final double width, height;
   RegisterWidget({this.height, this.width});
@@ -30,8 +29,6 @@ class RegisterWidget extends StatelessWidget {
     );
   }
 }
-
-
 
 class RegisterFormWidget extends StatelessWidget {
   final double width, height;
@@ -185,8 +182,6 @@ class RegisterFormWidget extends StatelessWidget {
   }
 }
 
-
-
 class BackgroundContainer extends StatelessWidget {
   final double width, height;
   BackgroundContainer({
@@ -200,11 +195,13 @@ class BackgroundContainer extends StatelessWidget {
       height: height * 0.6,
       width: width,
       decoration: BoxDecoration(
+        color: Theme.of(context).backgroundColor,
         image: DecorationImage(
-            image: AssetImage(
-              "assets/images/login10.jpeg",
-            ),
-            fit: BoxFit.cover),
+          image: AssetImage(
+            "assets/images/login10.jpeg",
+          ),
+          fit: BoxFit.cover,
+        ),
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -224,4 +221,3 @@ class BackgroundContainer extends StatelessWidget {
     );
   }
 }
-

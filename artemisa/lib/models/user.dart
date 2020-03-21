@@ -10,6 +10,7 @@ class User extends Equatable {
       password,
       passwordConfirmation;
 
+
   User({
     @required this.email,
     @required this.gender,

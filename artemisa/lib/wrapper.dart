@@ -43,7 +43,7 @@ class _WrapperState extends State<Wrapper> {
       if (authenticated) {
         return Home();
       } else {
-        return Login();
+        return Register();
       }
     }
   }
