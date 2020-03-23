@@ -87,7 +87,7 @@ class Home extends StatelessWidget {
                     prefixIcon: Icon(
                       Icons.search,
                     ),
-                    hintText: 'Donde estas buscando?',
+                    hintText: '¿Dónde estás buscando?',
                     border: InputBorder.none,
                   ),
                 ),

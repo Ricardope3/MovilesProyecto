@@ -113,7 +113,7 @@ class BottomSheetWidget extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushReplacementNamed(context, "/home");
+              Navigator.pushReplacementNamed(context, "/navWrapper");
             },
             child: Text(
               "Continuar sin cuenta",
