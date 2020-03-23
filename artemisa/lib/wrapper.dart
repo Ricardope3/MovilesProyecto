@@ -25,6 +25,9 @@ class _WrapperState extends State<Wrapper> {
         listener: (context, state) {
           if (state is Registered) {
             setState(() {
+              if(Navigator.canPop(context)){
+                Navigator.pop(context);
+              }
               authenticated = true;
             });
           }
@@ -43,7 +46,7 @@ class _WrapperState extends State<Wrapper> {
       if (authenticated) {
         return NavWrapper();
       } else {
-        return Register();
+        return Login();
       }
     }
   }
