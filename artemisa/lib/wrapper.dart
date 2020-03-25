@@ -1,10 +1,7 @@
-import 'package:Artemisa/screens/register.dart';
 import 'package:Artemisa/screens/welcome.dart';
 import 'package:Artemisa/navWrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'Authentication/register_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'screens/login.dart';
@@ -19,24 +16,7 @@ class _WrapperState extends State<Wrapper> {
   bool isNewUser = false;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => RegisterBloc(),
-      child: BlocListener<RegisterBloc, RegisterState>(
-        listener: (context, state) {
-          if (state is Registered) {
-            setState(() {
-              if(Navigator.canPop(context)){
-                Navigator.pop(context);
-              }
-              authenticated = true;
-            });
-          }
-        },
-        child: Container(
-          child: _renderCorrectWidget(),
-        ),
-      ),
-    );
+    return _renderCorrectWidget();
   }
 
   Widget _renderCorrectWidget() {

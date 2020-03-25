@@ -23,6 +23,7 @@ class _NavWrapperState extends State<NavWrapper> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _index,
+        elevation: 0,
         items: <BottomNavigationBarItem> [
           BottomNavigationBarItem(
             title: SizedBox.shrink(),

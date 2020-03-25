@@ -1,7 +1,4 @@
-import 'package:Artemisa/Authentication/register_bloc.dart';
-import 'package:Artemisa/models/user.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterWidget extends StatelessWidget {
   final double width, height;
@@ -33,10 +30,8 @@ class RegisterWidget extends StatelessWidget {
 class RegisterFormWidget extends StatelessWidget {
   final double width, height;
   RegisterFormWidget({this.height, this.width});
-  RegisterBloc registerBloc;
   @override
   Widget build(BuildContext context) {
-    registerBloc = BlocProvider.of<RegisterBloc>(context);
     return Positioned(
       top: height * 0.5,
       child: Container(
@@ -70,18 +65,10 @@ class RegisterFormWidget extends StatelessWidget {
                       ),
                       splashColor: Colors.white,
                       onTap: () {
-                        registerBloc.add(
-                          OnRegister(
-                            user: User(
-                              name: "Ricardo",
-                              email: "ricky.foals@gmail.com",
-                              gender: "Male",
-                              language: "es",
-                              lastname: "Espinoza",
-                              password: "123",
-                              passwordConfirmation: "123",
-                            ),
-                          ),
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          '/home',
+                          ModalRoute.withName('/login'),
                         );
                       },
                       child: Container(

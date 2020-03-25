@@ -1,10 +1,5 @@
-import 'package:Artemisa/Authentication/register_bloc.dart';
-import 'package:Artemisa/models/user.dart';
-import 'package:Artemisa/screens/register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class Login extends StatefulWidget {
@@ -24,18 +19,7 @@ class _LoginState extends State<Login> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      body: BlocBuilder<RegisterBloc, RegisterState>(
-        builder: (context, state) {
-          if (state is RegisterInitial) {
-            return buildLoginWidget(height, width);
-          } else if (state is Registering) {
-            return buildRegisteringWidget(context);
-          } else if (state is Registered) {
-            return buildRegisteredWidget();
-          }
-          return buildLoginWidget(height, width);
-        },
-      ),
+      body: buildLoginWidget(height, width),
     );
   }
 
@@ -112,10 +96,8 @@ class BackgroundContainer extends StatelessWidget {
 class LoginWidget extends StatelessWidget {
   final double width, height;
   LoginWidget({this.height, this.width});
-  RegisterBloc registerBloc;
   @override
   Widget build(BuildContext context) {
-    registerBloc = BlocProvider.of<RegisterBloc>(context);
     return Container(
       height: height * 0.4,
       width: width,
@@ -147,19 +129,7 @@ class LoginWidget extends StatelessWidget {
                     ),
                     splashColor: Colors.white,
                     onTap: () {
-                      registerBloc.add(
-                        OnRegister(
-                          user: User(
-                            name: "Ricardo",
-                            email: "ricky.foals@gmail.com",
-                            gender: "Male",
-                            language: "es",
-                            lastname: "Espinoza",
-                            password: "123",
-                            passwordConfirmation: "123",
-                          ),
-                        ),
-                      );
+                      Navigator.pushReplacementNamed(context, '/home');
                     },
                     child: Container(
                       width: 95,
@@ -240,15 +210,7 @@ class LoginWidget extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => BlocProvider.value(
-                                  value: BlocProvider.of<RegisterBloc>(context),
-                                  child: Register(),
-                                ),
-                              ),
-                            );
+                            Navigator.pushNamed(context, '/register');
                           },
                           child: Container(
                             //height: 55,
