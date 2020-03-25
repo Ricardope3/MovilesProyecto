@@ -16,7 +16,7 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   bool authenticated = false;
   bool isNewUser = false;
-  bool debuggingLandlord = true; //TODO: Delete. Just for development purposes
+  bool debuggingLandlord = false; //TODO: Delete. Just for development purposes
 
   @override
   Widget build(BuildContext context) {
