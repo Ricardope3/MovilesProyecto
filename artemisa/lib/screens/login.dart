@@ -240,11 +240,11 @@ class LoginWidget extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (_) => BlocProvider.value(
-                                  value: registerBloc,
+                                  value: BlocProvider.of<RegisterBloc>(context),
                                   child: Register(),
                                 ),
                               ),
