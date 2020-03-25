@@ -1,16 +1,16 @@
 # artemisa
 
-A new Flutter project.
+Artemisa mobile app
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+- [Setup environment](https://flutter.dev/docs/get-started/install)
+- [online documentation](https://flutter.dev/docs)
 
-A few resources to get you started if this is your first Flutter project:
+## Run project
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- In VSCode use F5 or go to Run/Start Debugging or Run Without Debugging
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Develop for landlord
+- Go to "lib/wrapper.dart"
+- Change bool debuggingLandlord at line 19 to "True"
