@@ -176,10 +176,10 @@ class LocalListing extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(40)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black38,
+              color: Colors.black26,
               spreadRadius: -20,
               blurRadius: 20,
-              offset: Offset(0,20),              
+              offset: Offset(0,10),              
             ),
           ],
         ),
@@ -215,7 +215,7 @@ class LocalListing extends StatelessWidget {
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
-                              Colors.black54,
+                              Colors.black45,
                               Colors.transparent,
                             ],
                             begin: Alignment.bottomCenter,
