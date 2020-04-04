@@ -1,17 +1,17 @@
-import 'package:Artemisa/screens/bookings.dart';
-import 'package:Artemisa/screens/chats.dart';
-import 'package:Artemisa/screens/home.dart';
-import 'package:Artemisa/screens/profile.dart';
+import 'package:Artemisa/landlord/screens/bookings.dart';
+import 'package:Artemisa/landlord/screens/chats.dart';
+import 'package:Artemisa/landlord/screens/home.dart';
+import 'package:Artemisa/landlord/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class NavWrapper extends StatefulWidget {
+class LandlordNavWrapper extends StatefulWidget {
 
   @override
-  _NavWrapperState createState() => _NavWrapperState();
+  _LandlordNavWrapperState createState() => _LandlordNavWrapperState();
 }
 
-class _NavWrapperState extends State<NavWrapper> {
+class _LandlordNavWrapperState extends State<LandlordNavWrapper> {
   final List<Widget> _screens = [Home(), Bookings(), Chats(), Profile()];
 
   int _index = 0;
