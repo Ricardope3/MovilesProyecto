@@ -1,4 +1,5 @@
 import 'package:Artemisa/landlord/landlordNavWrapper.dart';
+import 'package:Artemisa/navWrapper.dart';
 import 'package:Artemisa/screens/bookings.dart';
 import 'package:Artemisa/screens/chats.dart';
 import 'package:Artemisa/screens/login.dart';
