@@ -1,6 +1,10 @@
+import 'package:Artemisa/classes/user.dart';
+import 'package:Artemisa/models/authentication.dart';
+import 'package:Artemisa/models/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   Login();
@@ -14,17 +18,28 @@ class _LoginState extends State<Login> {
   String password = "";
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: buildLoginWidget(height, width),
+    return ChangeNotifierProvider(
+      create: (_) => LoadingModel(),
+      child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: CorrectWidget(),
+      ),
     );
   }
+}
 
-  Center buildRegisteredWidget() {
-    return Center(heightFactor: 20, child: Text("Redireccionando"));
+class CorrectWidget extends StatelessWidget {
+  const CorrectWidget({Key key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    LoadingModel loadingModel = Provider.of<LoadingModel>(context);
+    return Container(
+      child: !loadingModel.loading
+          ? buildLoginWidget(height, width)
+          : buildRegisteringWidget(context),
+    );
   }
 
   Center buildRegisteringWidget(BuildContext context) {
@@ -94,10 +109,14 @@ class BackgroundContainer extends StatelessWidget {
 }
 
 class LoginWidget extends StatelessWidget {
+  AuthModel authModel;
+  LoadingModel loadingModel;
   final double width, height;
   LoginWidget({this.height, this.width});
   @override
   Widget build(BuildContext context) {
+    loadingModel = Provider.of<LoadingModel>(context);
+    authModel = Provider.of<AuthModel>(context);
     return Container(
       height: height * 0.4,
       width: width,
@@ -128,8 +147,24 @@ class LoginWidget extends StatelessWidget {
                       Radius.circular(50),
                     ),
                     splashColor: Colors.white,
-                    onTap: () {
-                      Navigator.pushReplacementNamed(context, '/home');
+                    onTap: () async {
+                      loadingModel.loading = true;
+                      User usuario = User(
+                        email: "a",
+                        gender: "m",
+                        language: "es",
+                        lastname: "r",
+                        name: "r",
+                        password: "a",
+                        passwordConfirmation: "a",
+                      );
+                      User registeredUser =
+                          await authModel.registerUser(usuario);
+                      authModel.token = "newToken";
+                      authModel.user = registeredUser;
+                      loadingModel.loading = false;
+
+                      //Navigator.pushReplacementNamed(context, '/home');
                     },
                     child: Container(
                       width: 95,
