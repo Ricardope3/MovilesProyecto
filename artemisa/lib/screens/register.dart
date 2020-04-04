@@ -1,7 +1,9 @@
+import 'package:Artemisa/models/loading.dart';
 import 'package:Artemisa/stack/register_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:provider/provider.dart';
 
 class Register extends StatefulWidget {
   Register();
@@ -14,17 +16,29 @@ class _RegisterState extends State<Register> {
   String password = "";
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: buildRegisterWidget(height, width),
+    return ChangeNotifierProvider(
+      create: (_) => LoadingModel(),
+      child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: RegisterBuilder(),
+      ),
     );
   }
+}
 
-  Center buildRegisteredWidget() {
-    return Center(child: Text("Redireccionando"));
+class RegisterBuilder extends StatelessWidget {
+  RegisterBuilder();
+  LoadingModel loadingModel;
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    loadingModel = Provider.of<LoadingModel>(context);
+    return Container(
+      child: !loadingModel.loading
+          ? buildRegisterWidget(height, width)
+          : buildRegisteringWidget(context),
+    );
   }
 
   Center buildRegisteringWidget(BuildContext context) {
