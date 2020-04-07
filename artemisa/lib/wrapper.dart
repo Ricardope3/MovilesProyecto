@@ -17,7 +17,6 @@ class Wrapper extends StatefulWidget {
 
 class _WrapperState extends State<Wrapper> {
   AuthModel authUser;
-  bool authenticated = false;
   bool isNewUser = false;
   bool debuggingLandlord = false; //TODO: Delete. Just for development purposes
 
@@ -34,7 +33,7 @@ class _WrapperState extends State<Wrapper> {
       if (debuggingLandlord) {
         return LandlordNavWrapper();
       } else if (authUser.token != null) {
-        return NavWrapper();
+        return Container();
       } else {
         return Login();
       }
