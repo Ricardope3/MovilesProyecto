@@ -33,7 +33,7 @@ class _WrapperState extends State<Wrapper> {
       if (debuggingLandlord) {
         return LandlordNavWrapper();
       } else if (authUser.token != null) {
-        return Container();
+        return NavWrapper();
       } else {
         return Login();
       }
