@@ -115,7 +115,7 @@ class LoginWidget extends StatelessWidget {
   LoginWidget({this.height, this.width});
   @override
   Widget build(BuildContext context) {
-    loadingModel = Provider.of<LoadingModel>(context);
+    loadingModel = Provider.of<LoadingModel>(context, listen: false);
     authModel = Provider.of<AuthModel>(context);
     return Container(
       height: height * 0.4,
@@ -158,13 +158,13 @@ class LoginWidget extends StatelessWidget {
                         password: "a",
                         passwordConfirmation: "a",
                       );
-                      User registeredUser =
-                          await authModel.registerUser(usuario);
-                      authModel.token = "newToken";
-                      authModel.user = registeredUser;
-                      loadingModel.loading = false;
-
-                      //Navigator.pushReplacementNamed(context, '/home');
+                      // User registeredUser =
+                      //     await authModel.registerUser(usuario);
+                      // authModel.token = "newToken";
+                      // authModel.user = registeredUser;
+                      // loadingModel.loading = false;
+                      await Future.delayed(Duration(seconds: 1));
+                      Navigator.pushReplacementNamed(context, '/navWrapper');
                     },
                     child: Container(
                       width: 95,

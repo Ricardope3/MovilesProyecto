@@ -16,47 +16,27 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> {
-  AuthModel authUser;
-  bool isNewUser = false;
+  AuthModel authModel;
   bool debuggingLandlord = false; //TODO: Delete. Just for development purposes
 
   @override
   Widget build(BuildContext context) {
-    authUser = Provider.of<AuthModel>(context);
+    authModel = Provider.of<AuthModel>(context, listen: false);
     return _renderCorrectWidget();
   }
 
   Widget _renderCorrectWidget() {
-    if (isNewUser) {
-      return Welcome();
+    if (debuggingLandlord) {
+      return LandlordNavWrapper();
+    } else if (authModel.token != null) {
+      return NavWrapper();
     } else {
-      if (debuggingLandlord) {
-        return LandlordNavWrapper();
-      } else if (authUser.token != null) {
-        return NavWrapper();
-      } else {
-        return Login();
-      }
+      return Login();
     }
   }
 
   @override
   void initState() {
     super.initState();
-    _checkIfIsNewUser();
-  }
-
-  void _checkIfIsNewUser() async {
-    final appDocumentDir = await getApplicationDocumentsDirectory();
-    Hive.init(appDocumentDir.path);
-    var box = await Hive.openBox('newUserBox');
-    int flag = box.get('newUser');
-    if (flag == null) {
-      //Is new User
-      setState(() {
-        isNewUser = true;
-      });
-      box.put("newUser", 1);
-    }
   }
 }
