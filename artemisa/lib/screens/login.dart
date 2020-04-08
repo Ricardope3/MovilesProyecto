@@ -34,10 +34,10 @@ class CorrectWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    LoadingModel loadingModel = Provider.of<LoadingModel>(context);
+    LoadingModel loadingModel = Provider.of<LoadingModel>(context, listen: false);
     return Container(
       child: !loadingModel.loading
-          ? buildLoginWidget(height, width)
+          ? buildLoginWidget(height, width,loadingModel)
           : buildRegisteringWidget(context),
     );
   }
@@ -54,7 +54,7 @@ class CorrectWidget extends StatelessWidget {
     );
   }
 
-  Widget buildLoginWidget(double height, double width) {
+  Widget buildLoginWidget(double height, double width, LoadingModel loadingModel) {
     return SingleChildScrollView(
       child: Stack(
         children: <Widget>[
@@ -68,6 +68,7 @@ class CorrectWidget extends StatelessWidget {
             child: LoginWidget(
               height: height,
               width: width,
+              loadingModel:loadingModel
             ),
           ),
         ],
@@ -108,15 +109,16 @@ class BackgroundContainer extends StatelessWidget {
   }
 }
 
+
 class LoginWidget extends StatelessWidget {
-  AuthModel authModel;
+  double height;
+  double width;
   LoadingModel loadingModel;
-  final double width, height;
-  LoginWidget({this.height, this.width});
+  LoginWidget({this.height,this.width,this.loadingModel});
+  AuthModel authModel;
   @override
   Widget build(BuildContext context) {
-    loadingModel = Provider.of<LoadingModel>(context, listen: false);
-    authModel = Provider.of<AuthModel>(context);
+    authModel = Provider.of<AuthModel>(context, listen: false);
     return Container(
       height: height * 0.4,
       width: width,
@@ -158,13 +160,13 @@ class LoginWidget extends StatelessWidget {
                         password: "a",
                         passwordConfirmation: "a",
                       );
-                      // User registeredUser =
-                      //     await authModel.registerUser(usuario);
-                      // authModel.token = "newToken";
-                      // authModel.user = registeredUser;
-                      // loadingModel.loading = false;
-                      await Future.delayed(Duration(seconds: 1));
-                      Navigator.pushReplacementNamed(context, '/navWrapper');
+                      User registeredUser =
+                          await authModel.registerUser(usuario);
+                      authModel.token = "newToken";
+                      authModel.user = registeredUser;
+                      loadingModel.loading = false;
+                      Navigator.pushReplacementNamed(context, "/navWrapper");
+                        
                     },
                     child: Container(
                       width: 95,
@@ -270,5 +272,5 @@ class LoginWidget extends StatelessWidget {
         ],
       ),
     );
-  }
+  }  
 }
