@@ -14,4 +14,3 @@ class RegisterUser extends RegisterRepository {
     });
   }
 }
-
