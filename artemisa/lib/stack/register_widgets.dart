@@ -87,7 +87,6 @@ class RegisterFormWidget extends StatelessWidget {
                             await authModel.registerUser(usuario);
                         authModel.token = "newToken";
                         authModel.user = registeredUser;
-                        loadingModel.loading = false;
                       },
                       child: Container(
                         width: 95,
