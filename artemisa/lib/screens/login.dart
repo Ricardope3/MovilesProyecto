@@ -18,6 +18,10 @@ class _LoginState extends State<Login> {
   String password = "";
   @override
   Widget build(BuildContext context) {
+    AuthModel authModel = Provider.of<AuthModel>(context, listen: false);
+    if (authModel.token != null) {
+      Navigator.pushReplacementNamed(context, "/navWrapper");
+    }
     return ChangeNotifierProvider(
       create: (_) => LoadingModel(),
       child: Scaffold(
@@ -34,10 +38,10 @@ class CorrectWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    LoadingModel loadingModel = Provider.of<LoadingModel>(context, listen: false);
+    LoadingModel loadingModel = Provider.of<LoadingModel>(context);
     return Container(
       child: !loadingModel.loading
-          ? buildLoginWidget(height, width,loadingModel)
+          ? buildLoginWidget(height, width, loadingModel)
           : buildRegisteringWidget(context),
     );
   }
@@ -54,7 +58,8 @@ class CorrectWidget extends StatelessWidget {
     );
   }
 
-  Widget buildLoginWidget(double height, double width, LoadingModel loadingModel) {
+  Widget buildLoginWidget(
+      double height, double width, LoadingModel loadingModel) {
     return SingleChildScrollView(
       child: Stack(
         children: <Widget>[
@@ -66,10 +71,7 @@ class CorrectWidget extends StatelessWidget {
           Positioned(
             top: height * 0.6,
             child: LoginWidget(
-              height: height,
-              width: width,
-              loadingModel:loadingModel
-            ),
+                height: height, width: width, loadingModel: loadingModel),
           ),
         ],
       ),
@@ -109,12 +111,11 @@ class BackgroundContainer extends StatelessWidget {
   }
 }
 
-
 class LoginWidget extends StatelessWidget {
   double height;
   double width;
   LoadingModel loadingModel;
-  LoginWidget({this.height,this.width,this.loadingModel});
+  LoginWidget({this.height, this.width, this.loadingModel});
   AuthModel authModel;
   @override
   Widget build(BuildContext context) {
@@ -164,9 +165,6 @@ class LoginWidget extends StatelessWidget {
                           await authModel.registerUser(usuario);
                       authModel.token = "newToken";
                       authModel.user = registeredUser;
-                      loadingModel.loading = false;
-                      Navigator.pushReplacementNamed(context, "/navWrapper");
-                        
                     },
                     child: Container(
                       width: 95,
@@ -272,5 +270,5 @@ class LoginWidget extends StatelessWidget {
         ],
       ),
     );
-  }  
+  }
 }

@@ -21,7 +21,7 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   Widget build(BuildContext context) {
-    authModel = Provider.of<AuthModel>(context, listen: false);
+    authModel = Provider.of<AuthModel>(context);
     return _renderCorrectWidget();
   }
 
