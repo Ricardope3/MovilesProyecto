@@ -2,6 +2,7 @@ import 'package:Artemisa/navWrapper.dart';
 import 'package:Artemisa/screens/bookings.dart';
 import 'package:Artemisa/screens/chats.dart';
 import 'package:Artemisa/screens/login.dart';
+import 'package:Artemisa/screens/details.dart';
 import 'package:Artemisa/screens/profile.dart';
 import 'package:Artemisa/screens/register.dart';
 import 'package:Artemisa/screens/welcome.dart';

@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
-  runApp(MyApp());  
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Artemisa',
         theme: theme,
-         initialRoute: '/',
+        initialRoute: '/',
         routes: routes,
       ),
     );
