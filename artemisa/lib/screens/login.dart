@@ -21,7 +21,7 @@ class _LoginState extends State<Login> {
     AuthModel authModel = Provider.of<AuthModel>(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (authModel.token != null) {
-        Navigator.pushReplacementNamed(context, "/navWrapper");
+        Navigator.pushNamedAndRemoveUntil(context, '/navWrapper', ModalRoute.withName('/login'));
       }
     });
     return ChangeNotifierProvider(
