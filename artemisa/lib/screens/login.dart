@@ -18,7 +18,7 @@ class _LoginState extends State<Login> {
   String password = "";
   @override
   Widget build(BuildContext context) {
-    AuthModel authModel = Provider.of<AuthModel>(context, listen: false);
+    AuthModel authModel = Provider.of<AuthModel>(context);
     if (authModel.token != null) {
       Navigator.pushReplacementNamed(context, "/navWrapper");
     }
