@@ -19,9 +19,11 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     AuthModel authModel = Provider.of<AuthModel>(context);
-    if (authModel.token != null) {
-      Navigator.pushReplacementNamed(context, "/navWrapper");
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (authModel.token != null) {
+        Navigator.pushReplacementNamed(context, "/navWrapper");
+      }
+    });
     return ChangeNotifierProvider(
       create: (_) => LoadingModel(),
       child: Scaffold(
@@ -165,6 +167,7 @@ class LoginWidget extends StatelessWidget {
                           await authModel.registerUser(usuario);
                       authModel.token = "newToken";
                       authModel.user = registeredUser;
+                      loadingModel.loading = false;
                     },
                     child: Container(
                       width: 95,

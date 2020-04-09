@@ -1,4 +1,3 @@
-import 'package:Artemisa/landlord/landlordNavWrapper.dart';
 import 'package:Artemisa/navWrapper.dart';
 import 'package:Artemisa/screens/bookings.dart';
 import 'package:Artemisa/screens/chats.dart';
@@ -38,7 +37,7 @@ final Map<String, Widget Function(BuildContext)> routes = {
         future: _checkIfIsNewUser(),
         initialData: false,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          return snapshot.data ? Welcome() : Wrapper();
+          return snapshot.data ? Welcome() : Login();
         },
       ),
   '/login': (context) => Login(),
