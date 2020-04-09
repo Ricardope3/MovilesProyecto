@@ -11,15 +11,14 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     List<String> casas = [
-      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80",
-      "https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
-      "https://images.unsplash.com/photo-1430285561322-7808604715df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
-      "https://images.unsplash.com/photo-1464146072230-91cabc968266?ixlib=rb-1.2.1&auto=format&fit=crop&w=2880&q=80",
-      "https://images.unsplash.com/photo-1501635238895-63f29cfc06b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1651&q=80",
-      "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
+      "https://thumbnails.trvl-media.com/79tIkoSNkgRD-qVN43aR2E53T7I=/582x388/smart/filters:quality(60)/images.trvl-media.com/hotels/37000000/36170000/36165900/36165869/bba65cb5_z.jpg",
+      "https://img10.naventcdn.com/avisos/18/00/53/55/97/00/720x532/144271181.jpg",
+      "https://img10.naventcdn.com/avisos/18/00/56/13/44/38/1200x1200/126798462.jpg",
+      "https://d3te2s0dmhk13a.cloudfront.net/27267/-2128040036.jpeg",
+      "https://img10.naventcdn.com/avisos/18/00/57/63/44/92/720x532/149988896.jpg",
     ];
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Colors.grey.shade100,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,10 +175,10 @@ class LocalListing extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(40)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black26,
+              color: Colors.black.withOpacity(0.12),
               spreadRadius: -20,
               blurRadius: 20,
-              offset: Offset(0,10),              
+              offset: Offset(0,12),              
             ),
           ],
         ),
@@ -192,7 +191,7 @@ class LocalListing extends StatelessWidget {
               height: height * 0.2055,
               width: height * 0.2055,
               decoration: BoxDecoration(
-                color: Colors.grey.shade200,
+                color: Colors.white,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(40),
                   topLeft: Radius.circular(40),
@@ -231,7 +230,7 @@ class LocalListing extends StatelessWidget {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
+                  color: Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.horizontal(
                     right: Radius.circular(40),
                   ),
@@ -360,7 +359,7 @@ class PopularListing extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Luxury Hotel",
+                      "Cuarto en renta",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -371,7 +370,7 @@ class PopularListing extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      "Salema, Portugal",
+                      "San Isidro, Zapopan",
                       style: TextStyle(color: Colors.white),
                     )
                   ],

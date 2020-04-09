@@ -1,6 +1,10 @@
+import 'package:Artemisa/classes/user.dart';
+import 'package:Artemisa/models/authentication.dart';
+import 'package:Artemisa/models/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   Login();
@@ -14,17 +18,34 @@ class _LoginState extends State<Login> {
   String password = "";
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: buildLoginWidget(height, width),
+    AuthModel authModel = Provider.of<AuthModel>(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (authModel.token != null) {
+        Navigator.pushReplacementNamed(context, "/navWrapper");
+      }
+    });
+    return ChangeNotifierProvider(
+      create: (_) => LoadingModel(),
+      child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: CorrectWidget(),
+      ),
     );
   }
+}
 
-  Center buildRegisteredWidget() {
-    return Center(heightFactor: 20, child: Text("Redireccionando"));
+class CorrectWidget extends StatelessWidget {
+  const CorrectWidget({Key key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    LoadingModel loadingModel = Provider.of<LoadingModel>(context);
+    return Container(
+      child: !loadingModel.loading
+          ? buildLoginWidget(height, width, loadingModel)
+          : buildRegisteringWidget(context),
+    );
   }
 
   Center buildRegisteringWidget(BuildContext context) {
@@ -39,7 +60,8 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget buildLoginWidget(double height, double width) {
+  Widget buildLoginWidget(
+      double height, double width, LoadingModel loadingModel) {
     return SingleChildScrollView(
       child: Stack(
         children: <Widget>[
@@ -51,9 +73,7 @@ class _LoginState extends State<Login> {
           Positioned(
             top: height * 0.6,
             child: LoginWidget(
-              height: height,
-              width: width,
-            ),
+                height: height, width: width, loadingModel: loadingModel),
           ),
         ],
       ),
@@ -94,10 +114,14 @@ class BackgroundContainer extends StatelessWidget {
 }
 
 class LoginWidget extends StatelessWidget {
-  final double width, height;
-  LoginWidget({this.height, this.width});
+  double height;
+  double width;
+  LoadingModel loadingModel;
+  LoginWidget({this.height, this.width, this.loadingModel});
+  AuthModel authModel;
   @override
   Widget build(BuildContext context) {
+    authModel = Provider.of<AuthModel>(context, listen: false);
     return Container(
       height: height * 0.4,
       width: width,
@@ -128,8 +152,22 @@ class LoginWidget extends StatelessWidget {
                       Radius.circular(50),
                     ),
                     splashColor: Colors.white,
-                    onTap: () {
-                      Navigator.pushReplacementNamed(context, '/home');
+                    onTap: () async {
+                      loadingModel.loading = true;
+                      User usuario = User(
+                        email: "a",
+                        gender: "m",
+                        language: "es",
+                        lastname: "r",
+                        name: "r",
+                        password: "a",
+                        passwordConfirmation: "a",
+                      );
+                      User registeredUser =
+                          await authModel.registerUser(usuario);
+                      authModel.token = "newToken";
+                      authModel.user = registeredUser;
+                      loadingModel.loading = false;
                     },
                     child: Container(
                       width: 95,

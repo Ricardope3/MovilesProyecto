@@ -1,4 +1,8 @@
+import 'package:Artemisa/classes/user.dart';
+import 'package:Artemisa/models/authentication.dart';
+import 'package:Artemisa/models/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegisterWidget extends StatelessWidget {
   final double width, height;
@@ -28,10 +32,14 @@ class RegisterWidget extends StatelessWidget {
 }
 
 class RegisterFormWidget extends StatelessWidget {
+  AuthModel authModel;
+  LoadingModel loadingModel;
   final double width, height;
   RegisterFormWidget({this.height, this.width});
   @override
   Widget build(BuildContext context) {
+    authModel = Provider.of<AuthModel>(context);
+    loadingModel = Provider.of<LoadingModel>(context);
     return Positioned(
       top: height * 0.5,
       child: Container(
@@ -64,12 +72,22 @@ class RegisterFormWidget extends StatelessWidget {
                         Radius.circular(50),
                       ),
                       splashColor: Colors.white,
-                      onTap: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          '/home',
-                          ModalRoute.withName('/login'),
+                      onTap: () async {
+                        loadingModel.loading = true;
+                        User usuario = User(
+                          email: "a",
+                          gender: "m",
+                          language: "es",
+                          lastname: "r",
+                          name: "r",
+                          password: "a",
+                          passwordConfirmation: "a",
                         );
+                        User registeredUser =
+                            await authModel.registerUser(usuario);
+                        authModel.token = "newToken";
+                        authModel.user = registeredUser;
+                        loadingModel.loading = false;
                       },
                       child: Container(
                         width: 95,
