@@ -27,6 +27,38 @@ class Details extends StatelessWidget {
               ),
             ),
           ),
+          Container(
+            height: height,
+            width: width,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.black38, Colors.transparent],
+                begin: Alignment.topCenter,
+                end: Alignment(0, 0.02),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 75, horizontal: 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                ),
+                Icon(
+                  FontAwesomeIcons.heart,
+                  color: Colors.white,
+                  size: 25,
+                ),
+              ],
+            ),
+          ),
           DraggableScrollableSheet(
               initialChildSize: 0.65,
               expand: true,
@@ -67,7 +99,8 @@ class Details extends StatelessWidget {
                                       Radius.circular(50),
                                     ),
                                   ),
-                                )
+                                ),
+                                PropertyDetails()
                               ],
                             ),
                           ),
@@ -115,5 +148,126 @@ class Details extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class PropertyDetails extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 17, vertical: 40),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            "Cuarto en Jardín Real",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.cyan[800],
+              fontSize: 24,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Guadalajara, Jalisco",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Colors.blueGrey[400],
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    "Hosted by Diego and Oscar",
+                    style: TextStyle(
+                      color: Colors.blueGrey[400],
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                "\$5000",
+                style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 40),
+            child: Column(
+              children: <Widget>[
+                Amenity(
+                  icon: FontAwesomeIcons.home,
+                  title: "1 cuarto particular con baño completo",
+                  details: "4 cuartos en total, 3 baños y medio",
+                ),
+                Amenity(
+                  icon: FontAwesomeIcons.userPlus,
+                  title: "Compartiendo con 3 personas más",
+                  details: "3 roomies hombres",
+                ),
+                Amenity(
+                  icon: FontAwesomeIcons.shieldAlt,
+                  title: "Ubicada dentro de coto con seguridad",
+                  details: "Condominio cerrado",
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class Amenity extends StatelessWidget {
+  final String title, details;
+  final IconData icon;
+
+  Amenity({this.icon, this.title, this.details});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Icon(
+              this.icon,
+              color: Theme.of(context).primaryColor,
+              size: 15,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    this.title,
+                    style: TextStyle(
+                      color: Colors.cyan[800],
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    this.details,
+                    style: TextStyle(
+                      color: Colors.blueGrey[400],
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ));
   }
 }
