@@ -21,7 +21,8 @@ class _LoginState extends State<Login> {
     AuthModel authModel = Provider.of<AuthModel>(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (authModel.token != null) {
-        Navigator.pushNamedAndRemoveUntil(context, '/navWrapper', ModalRoute.withName('/login'));
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/navWrapper', ModalRoute.withName('/login'));
       }
     });
     return ChangeNotifierProvider(
@@ -116,12 +117,13 @@ class BackgroundContainer extends StatelessWidget {
 class LoginWidget extends StatelessWidget {
   double height;
   double width;
-  LoadingModel loadingModel;
   LoginWidget({this.height, this.width, this.loadingModel});
+  LoadingModel loadingModel;
   AuthModel authModel;
   @override
   Widget build(BuildContext context) {
     authModel = Provider.of<AuthModel>(context, listen: false);
+    loadingModel = Provider.of<LoadingModel>(context, listen: false);
     return Container(
       height: height * 0.4,
       width: width,

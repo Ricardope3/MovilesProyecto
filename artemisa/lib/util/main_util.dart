@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../wrapper.dart';
 
 Future<bool> _checkIfIsNewUser() async {
   final appDocumentDir = await getApplicationDocumentsDirectory();
@@ -43,7 +42,6 @@ final Map<String, Widget Function(BuildContext)> routes = {
       ),
   '/login': (context) => Login(),
   '/register': (context) => Register(),
-  '/wrapper': (context) => Wrapper(),
   '/bookings': (context) => Bookings(),
   '/chats': (context) => Chats(),
   '/profile': (context) => Profile(),

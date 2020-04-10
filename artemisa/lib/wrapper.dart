@@ -1,11 +1,8 @@
 import 'package:Artemisa/models/authentication.dart';
-import 'package:Artemisa/screens/welcome.dart';
 import 'package:Artemisa/navWrapper.dart';
 import 'package:Artemisa/landlord/landlordNavWrapper.dart';
 
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/login.dart';
