@@ -1,3 +1,4 @@
+import 'package:Artemisa/repositories/property_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,6 +11,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    PropertyRepository().listing();
     List<String> casas = [
       "https://thumbnails.trvl-media.com/79tIkoSNkgRD-qVN43aR2E53T7I=/582x388/smart/filters:quality(60)/images.trvl-media.com/hotels/37000000/36170000/36165900/36165869/bba65cb5_z.jpg",
       "https://img10.naventcdn.com/avisos/18/00/53/55/97/00/720x532/144271181.jpg",

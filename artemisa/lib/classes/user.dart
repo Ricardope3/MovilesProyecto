@@ -10,7 +10,6 @@ class User extends Equatable {
       password,
       passwordConfirmation;
 
-
   User({
     @required this.email,
     @required this.gender,
@@ -20,6 +19,7 @@ class User extends Equatable {
     @required this.password,
     @required this.passwordConfirmation,
   });
+
   @override
   List<Object> get props =>
       [name, lastname, email, language, gender, password, passwordConfirmation];
