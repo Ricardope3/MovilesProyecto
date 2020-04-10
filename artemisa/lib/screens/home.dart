@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'listing.dart';
-import 'details.dart';
 
 class Home extends StatelessWidget {
   const Home();
@@ -164,7 +163,7 @@ class LocalListing extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, a, b) => Details(
+          pageBuilder: (context, a, b) => Listing(
             link: link,
             tag: link + 'local'
           ),
