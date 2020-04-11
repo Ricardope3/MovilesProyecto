@@ -144,6 +144,23 @@ Widget _localListingBuilder() {
   return FutureBuilder(
     future: PropertyRepository().listing(),
     builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 40),
+              child: Text(
+                "Ocurrió un error al obtener las propiedades :(",
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 14,
+                ),
+              ),
+            )
+          ],
+        );
+      }
       if (!snapshot.hasData) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
