@@ -171,18 +171,23 @@ Widget _localListingBuilder() {
           ],
         );
       }
-      final List<LocalListing> properties = List.from(snapshot.data.map(
-          (property) =>
-              LocalListing(link: property.pictures[0], title: property.title)));
+      final List<LocalListing> properties =
+          List.from(snapshot.data.map((Property property) => LocalListing(
+                link: property.pictures[0],
+                title: property.title,
+                id: property.id,
+                price: property.monthlyPrice,
+              )));
       return Column(children: properties);
     },
   );
 }
 
 class LocalListing extends StatelessWidget {
-  const LocalListing({this.link, this.title});
+  const LocalListing({this.id, this.link, this.title, this.price});
 
-  final String link, title;
+  final String link, title, id;
+  final double price;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -290,7 +295,7 @@ class LocalListing extends StatelessWidget {
                         height: 7,
                       ),
                       Text(
-                        "\$5000",
+                        "\$$price",
                         style: TextStyle(
                           color: Colors.green,
                           fontSize: 15,
