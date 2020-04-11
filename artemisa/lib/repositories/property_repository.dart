@@ -9,7 +9,6 @@ class PropertyRepository {
     if (response.statusCode == 200) {
       List<dynamic> properties = json.decode(response.body);
       final props = properties.map((property) => Property.fromJson(property)).toList();
-      print(props);
       return props;
     } else
       throw Exception('Failed to load properties');

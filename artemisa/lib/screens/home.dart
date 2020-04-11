@@ -1,3 +1,4 @@
+import 'package:Artemisa/classes/property.dart';
 import 'package:Artemisa/repositories/property_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,6 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    PropertyRepository().listing();
     List<String> casas = [
       "https://thumbnails.trvl-media.com/79tIkoSNkgRD-qVN43aR2E53T7I=/582x388/smart/filters:quality(60)/images.trvl-media.com/hotels/37000000/36170000/36165900/36165869/bba65cb5_z.jpg",
       "https://img10.naventcdn.com/avisos/18/00/53/55/97/00/720x532/144271181.jpg",
@@ -132,9 +132,10 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            Column(
-              children: _localListingBuilder(casas),
-            ),
+            Container(
+              height: height * .4,
+              child: _localListingBuilder(),
+            )
           ],
         ),
       ),
@@ -142,16 +143,25 @@ class Home extends StatelessWidget {
   }
 }
 
-List<Widget> _localListingBuilder(List<String> casas) {
-  List<Widget> localListings = [];
-  for (var i = 0; i < casas.length; i++) {
-    localListings.add(
-      LocalListing(
-        link: casas[i],
-      ),
-    );
-  }
-  return localListings;
+Widget _localListingBuilder() {
+  return FutureBuilder(
+    future: PropertyRepository().listing(),
+    builder: (context, snapshot) {
+      if (!snapshot.hasData) {
+        return Container();
+      }
+      List<Property> properties = snapshot.data ?? [];
+
+      return ListView.builder(
+          itemCount: properties.length,
+          itemBuilder: (context, index) {
+            Property property = properties[index];
+            return LocalListing(
+              link: property.pictures[0],
+            );
+          });
+    },
+  );
 }
 
 class LocalListing extends StatelessWidget {
@@ -165,10 +175,8 @@ class LocalListing extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, a, b) => Listing(
-            link: link,
-            tag: link + 'local'
-          ),
+          pageBuilder: (context, a, b) =>
+              Listing(link: link, tag: link + 'local'),
         ),
       ),
       child: Container(
@@ -180,7 +188,7 @@ class LocalListing extends StatelessWidget {
               color: Colors.black.withOpacity(0.12),
               spreadRadius: -20,
               blurRadius: 20,
-              offset: Offset(0,12),              
+              offset: Offset(0, 12),
             ),
           ],
         ),
