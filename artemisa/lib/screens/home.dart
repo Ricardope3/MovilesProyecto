@@ -132,10 +132,7 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              height: height * .4,
-              child: _localListingBuilder(),
-            )
+            _localListingBuilder()
           ],
         ),
       ),
@@ -148,26 +145,27 @@ Widget _localListingBuilder() {
     future: PropertyRepository().listing(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) {
-        return Container();
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.symmetric(vertical: 40),
+                child: CircularProgressIndicator())
+          ],
+        );
       }
-      List<Property> properties = snapshot.data ?? [];
-
-      return ListView.builder(
-          itemCount: properties.length,
-          itemBuilder: (context, index) {
-            Property property = properties[index];
-            return LocalListing(
-              link: property.pictures[0],
-            );
-          });
+      final List<LocalListing> properties = List.from(snapshot.data.map(
+          (property) =>
+              LocalListing(link: property.pictures[0], title: property.title)));
+      return Column(children: properties);
     },
   );
 }
 
 class LocalListing extends StatelessWidget {
-  const LocalListing({this.link});
+  const LocalListing({this.link, this.title});
 
-  final String link;
+  final String link, title;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -265,7 +263,7 @@ class LocalListing extends StatelessWidget {
                         height: 7,
                       ),
                       Text(
-                        "Casa en San Isidro",
+                        this.title,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 19,
