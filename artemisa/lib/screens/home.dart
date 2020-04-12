@@ -195,8 +195,7 @@ class LocalListing extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, a, b) =>
-              Listing(link: link, tag: link + 'local'),
+          pageBuilder: (context, a, b) => Listing(link: link, id: this.id),
         ),
       ),
       child: Container(
@@ -228,7 +227,7 @@ class LocalListing extends StatelessWidget {
                 ),
               ),
               child: Hero(
-                tag: link + "local",
+                tag: this.id,
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(
                     Radius.circular(40),
@@ -334,7 +333,7 @@ class PopularListing extends StatelessWidget {
         PageRouteBuilder(
           pageBuilder: (context, a, b) => Listing(
             link: casas[index],
-            tag: casas[index] + "popular",
+            id: casas[index] + "popular",
           ),
         ),
       ),

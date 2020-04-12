@@ -1,7 +1,6 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class Property extends Equatable {
+class Property {
   final String id, title, minimumStayRequirement, updatedAt, createdAt, homeId;
   final int type;
   final double monthlyPrice, securityDepositPrice, rating;
@@ -39,20 +38,24 @@ class Property extends Equatable {
       pictures: parsedPictures,
     );
   }
+}
 
-  @override
-  List<Object> get props => [
-        id,
-        title,
-        minimumStayRequirement,
-        updatedAt,
-        createdAt,
-        homeId,
-        type,
-        monthlyPrice,
-        securityDepositPrice,
-        rating,
-        listed,
-        pictures
-      ];
+class DetailedProperty {
+  final String title, neighborhood;
+  final double price;
+  final Map<String, dynamic> host;
+
+  DetailedProperty(
+      {@required this.title,
+      @required this.neighborhood,
+      @required this.price,
+      @required this.host});
+
+  factory DetailedProperty.fromJson(Map<String, dynamic> json) {
+    return DetailedProperty(
+        title: json['title'],
+        neighborhood: json['neighborhood'],
+        price: json['price'],
+        host: json['host']);
+  }
 }
