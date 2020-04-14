@@ -1,8 +1,8 @@
-import 'package:Artemisa/classes/user.dart';
-import 'package:Artemisa/models/authentication.dart';
-import 'package:Artemisa/models/loading.dart';
+import 'package:Artemisa/authBloc/authenticate_bloc.dart';
+import 'package:Artemisa/authBloc/authenticate_event.dart';
+import 'package:Artemisa/models/user.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterWidget extends StatelessWidget {
   final double width, height;
@@ -42,13 +42,13 @@ class RegisterFormWidget extends StatefulWidget {
 
 class _RegisterFormWidgetState extends State<RegisterFormWidget> {
   final _formKey = GlobalKey<FormState>();
-  LoadingModel loadingModel;
-  AuthModel authModel;
+  AuthenticateBloc registerBloc;
+  String _email = "";
+  String _name = "";
+  String _password = "";
   @override
   Widget build(BuildContext context) {
-    authModel = Provider.of<AuthModel>(context, listen: false);
-    loadingModel = Provider.of<LoadingModel>(context, listen: false);
-
+    registerBloc = BlocProvider.of<AuthenticateBloc>(context);
     return Positioned(
       top: widget.height * 0.5,
       child: Container(
@@ -83,20 +83,15 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                       splashColor: Colors.white,
                       onTap: () async {
                         if (true || _formKey.currentState.validate()) {
-                          // TODO: REMOVE true, ONLY FOR DEBUGGING
-                          loadingModel.loading = true;
-                          User usuario = User(
-                            email: "a",
-                            gender: "m",
-                            language: "es",
-                            lastname: "r",
-                            name: "r",
-                            password: "a",
-                            passwordConfirmation: "a",
+                          registerBloc.add(
+                            OnRegister(
+                              user: User(
+                                name: _name,
+                                email: _email,
+                                password: _password,
+                              ),
+                            ),
                           );
-                          User registeredUser =
-                              await authModel.registerUser(usuario);
-                          authModel.user = registeredUser;
                         }
                       },
                       child: Container(
@@ -140,7 +135,9 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                           child: Column(
                             children: <Widget>[
                               TextFormField(
-                                  onChanged: (val) {},
+                                  onChanged: (val) {
+                                    _name = val;
+                                  },
                                   decoration: new InputDecoration(
                                     hintText: 'Nombre',
                                   ),
@@ -171,7 +168,9 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   }),
                               TextFormField(
                                   keyboardType: TextInputType.emailAddress,
-                                  onChanged: (val) {},
+                                  onChanged: (val) {
+                                    _email = val;
+                                  },
                                   decoration: new InputDecoration(
                                     hintText: 'E-mail',
                                   ),
@@ -188,7 +187,9 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   }),
                               TextFormField(
                                   obscureText: true,
-                                  onChanged: (val) {},
+                                  onChanged: (val) {
+                                    _password = val;
+                                  },
                                   style: TextStyle(letterSpacing: 3),
                                   decoration: new InputDecoration(
                                     hintText: 'Contraseña',

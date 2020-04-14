@@ -1,10 +1,10 @@
-import 'package:Artemisa/classes/user.dart';
-import 'package:Artemisa/models/authentication.dart';
-import 'package:Artemisa/models/loading.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:Artemisa/authBloc/authenticate_bloc.dart';
+import 'package:Artemisa/authBloc/authenticate_event.dart';
+import 'package:Artemisa/authBloc/authenticate_state.dart';
+import 'package:Artemisa/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   Login();
@@ -18,34 +18,32 @@ class _LoginState extends State<Login> {
   String password = "";
   @override
   Widget build(BuildContext context) {
-    AuthModel authModel = Provider.of<AuthModel>(context);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (authModel.user.token != null) {
-        Navigator.pushNamedAndRemoveUntil(
-            context, '/navWrapper', ModalRoute.withName('/login'));
-      }
-    });
-    return ChangeNotifierProvider(
-      create: (_) => LoadingModel(),
-      child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: CorrectWidget(),
-      ),
-    );
-  }
-}
-
-class CorrectWidget extends StatelessWidget {
-  const CorrectWidget({Key key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    LoadingModel loadingModel = Provider.of<LoadingModel>(context);
-    return Container(
-      child: !loadingModel.loading
-          ? buildLoginWidget(height, width, loadingModel)
-          : buildRegisteringWidget(context),
+    return Scaffold(
+      body: BlocListener<AuthenticateBloc, AuthenticateState>(
+        listener: (context, state) {
+          if (state is Authenticated) {
+            Navigator.pushReplacementNamed(context, '/navWrapper');
+          } else if (state is AuthenticateError) {
+            final snackBar = SnackBar(content: Text('Error al iniciar sesion'));
+            Scaffold.of(context).showSnackBar(snackBar);
+          }
+        },
+        child: BlocBuilder<AuthenticateBloc, AuthenticateState>(
+          builder: (context, state) {
+            if (state is AuthenticateInitial) {
+              return buildLoginWidget(height, width);
+            } else if (state is Authenticating) {
+              return buildRegisteringWidget(context);
+            } else if (state is AuthenticateError) {
+              return buildLoginWidget(height, width);
+            } else {
+              return Container();
+            }
+          },
+        ),
+      ),
     );
   }
 
@@ -62,7 +60,9 @@ class CorrectWidget extends StatelessWidget {
   }
 
   Widget buildLoginWidget(
-      double height, double width, LoadingModel loadingModel) {
+    double height,
+    double width,
+  ) {
     return SingleChildScrollView(
       child: Stack(
         children: <Widget>[
@@ -73,8 +73,7 @@ class CorrectWidget extends StatelessWidget {
           BackgroundContainer(width: width, height: height),
           Positioned(
             top: height * 0.6,
-            child: LoginWidget(
-                height: height, width: width, loadingModel: loadingModel),
+            child: LoginWidget(height: height, width: width),
           ),
         ],
       ),
@@ -115,15 +114,19 @@ class BackgroundContainer extends StatelessWidget {
 }
 
 class LoginWidget extends StatelessWidget {
+  AuthenticateBloc loginBloc;
   double height;
   double width;
-  LoginWidget({this.height, this.width, this.loadingModel});
-  LoadingModel loadingModel;
-  AuthModel authModel;
+  LoginWidget({
+    this.height,
+    this.width,
+  });
+  String _email = "";
+  String _password = "";
   @override
   Widget build(BuildContext context) {
-    authModel = Provider.of<AuthModel>(context, listen: false);
-    loadingModel = Provider.of<LoadingModel>(context, listen: false);
+    loginBloc = BlocProvider.of<AuthenticateBloc>(context);
+
     return Container(
       height: height * 0.4,
       width: width,
@@ -155,19 +158,14 @@ class LoginWidget extends StatelessWidget {
                     ),
                     splashColor: Colors.white,
                     onTap: () async {
-                      loadingModel.loading = true;
-                      User usuario = User(
-                        email: "a",
-                        gender: "m",
-                        language: "es",
-                        lastname: "r",
-                        name: "r",
-                        password: "a",
-                        passwordConfirmation: "a",
+                      loginBloc.add(
+                        OnLogin(
+                          user: User(
+                            email: _email,
+                            password: _password,
+                          ),
+                        ),
                       );
-                      User registeredUser =
-                          await authModel.registerUser(usuario);
-                      authModel.user = registeredUser;
                     },
                     child: Container(
                       width: 95,
@@ -209,14 +207,18 @@ class LoginWidget extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           TextFormField(
-                            onChanged: (val) {},
+                            onChanged: (val) {
+                              _email = val;
+                            },
                             decoration: new InputDecoration(
                               hintText: 'E-mail',
                             ),
                           ),
                           TextFormField(
                             obscureText: true,
-                            onChanged: (val) {},
+                            onChanged: (val) {
+                              _password = val;
+                            },
                             style: TextStyle(letterSpacing: 7),
                             decoration: new InputDecoration(
                               hintText: 'Password',
