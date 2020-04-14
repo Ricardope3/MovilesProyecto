@@ -25,7 +25,7 @@ class _WrapperState extends State<Wrapper> {
   Widget _renderCorrectWidget() {
     if (debuggingLandlord) {
       return LandlordNavWrapper();
-    } else if (authModel.token != null) {
+    } else if (authModel.user.token != null) {
       return NavWrapper();
     } else {
       return Login();

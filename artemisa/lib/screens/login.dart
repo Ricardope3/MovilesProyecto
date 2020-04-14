@@ -20,7 +20,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     AuthModel authModel = Provider.of<AuthModel>(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (authModel.token != null) {
+      if (authModel.user.token != null) {
         Navigator.pushNamedAndRemoveUntil(
             context, '/navWrapper', ModalRoute.withName('/login'));
       }
@@ -167,7 +167,6 @@ class LoginWidget extends StatelessWidget {
                       );
                       User registeredUser =
                           await authModel.registerUser(usuario);
-                      authModel.token = "newToken";
                       authModel.user = registeredUser;
                     },
                     child: Container(
