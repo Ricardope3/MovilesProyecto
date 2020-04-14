@@ -9,7 +9,7 @@ class User extends Equatable {
       gender,
       password,
       passwordConfirmation;
-
+  String id, token;
 
   User({
     @required this.email,
@@ -20,7 +20,19 @@ class User extends Equatable {
     @required this.password,
     @required this.passwordConfirmation,
   });
+
+  set setId(String newId) => this.id = newId;
+  set setToken(String newToken) => this.token = newToken;
+
   @override
-  List<Object> get props =>
-      [name, lastname, email, language, gender, password, passwordConfirmation];
+  List<Object> get props => [
+        id,
+        name,
+        lastname,
+        email,
+        language,
+        gender,
+        password,
+        passwordConfirmation,
+      ];
 }
