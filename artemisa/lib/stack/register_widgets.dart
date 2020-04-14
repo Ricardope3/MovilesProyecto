@@ -96,7 +96,6 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                           );
                           User registeredUser =
                               await authModel.registerUser(usuario);
-                          authModel.token = "newToken";
                           authModel.user = registeredUser;
                         }
                       },
