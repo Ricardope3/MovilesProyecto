@@ -1,4 +1,4 @@
-import 'package:Artemisa/classes/property.dart';
+import 'package:Artemisa/models/property.dart';
 import 'package:flutter/material.dart';
 import 'package:Artemisa/repositories/property_repository.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

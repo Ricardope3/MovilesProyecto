@@ -1,11 +1,12 @@
 import 'dart:convert';
 
-import 'package:Artemisa/classes/property.dart';
+import 'package:Artemisa/models/property.dart';
 import 'package:http/http.dart' as http;
 
 class PropertyRepository {
+  String _baseUrl = "http://192.168.100.6/api/";
   Future<List<Property>> listing() async {
-    final response = await http.get('http://192.168.100.6/api/properties');
+    final response = await http.get('${_baseUrl}properties');
     if (response.statusCode == 200) {
       List<dynamic> properties = json.decode(response.body);
       final props =
@@ -16,7 +17,7 @@ class PropertyRepository {
   }
 
   Future<DetailedProperty> details(String id) async {
-    final response = await http.get('http://192.168.100.6/api/properties/$id');
+    final response = await http.get('${_baseUrl}properties/$id');
     if (response.statusCode == 200) {
       return DetailedProperty.fromJson(json.decode(response.body));
     } else

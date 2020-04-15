@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 class User extends Equatable {
   final String name,
@@ -12,13 +11,13 @@ class User extends Equatable {
   String id, token;
 
   User({
-    @required this.email,
-    @required this.gender,
-    @required this.language,
-    @required this.lastname,
-    @required this.name,
-    @required this.password,
-    @required this.passwordConfirmation,
+    this.email,
+    this.gender,
+    this.language,
+    this.lastname,
+    this.name,
+    this.password,
+    this.passwordConfirmation,
   });
 
   set setId(String newId) => this.id = newId;
