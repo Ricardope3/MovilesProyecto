@@ -1,7 +1,6 @@
-import 'package:Artemisa/classes/user.dart';
+import 'package:Artemisa/models/user.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class AuthRepository {
@@ -15,13 +14,14 @@ class AuthRepository {
     Map data = {
       "name": user.name,
       "password": user.password,
-      "lastname": user.lastname,
+      "lastname": "lastname",
       "email": user.email,
-      "picture": "",
+      "picture": "pic",
       "language": "es",
-      "gender": "m",
-      "password_confirmation": user.passwordConfirmation,
+      "gender": "male",
+      "password_confirmation": user.password,
     };
+    print(data);
     var body = json.encode(data);
     var response = await http.post(
       url,
@@ -34,6 +34,7 @@ class AuthRepository {
       user.id = jsonObj['userId'];
       return user;
     } else {
+      print(response.body);
       return null;
     }
   }
