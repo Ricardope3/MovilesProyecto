@@ -82,7 +82,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                       ),
                       splashColor: Colors.white,
                       onTap: () async {
-                        if (true || _formKey.currentState.validate()) {
+                        if (_formKey.currentState.validate()) {
                           registerBloc.add(
                             OnRegister(
                               user: User(
@@ -201,9 +201,9 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                     if (value.isEmpty) {
                                       return 'Por favor, crea una contraseña';
                                     }
-                                    RegExp regex = new RegExp(r'.{8,}');
+                                    RegExp regex = new RegExp(r'.{6,}');
                                     if (!regex.hasMatch(value)) {
-                                      return 'La contraseña debe tener 8 caracteres o más';
+                                      return 'La contraseña debe tener 6 caracteres o más';
                                     }
                                     return null;
                                   }),
