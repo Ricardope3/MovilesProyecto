@@ -210,6 +210,7 @@ class LoginWidget extends StatelessWidget {
                             onChanged: (val) {
                               _email = val;
                             },
+                            keyboardType: TextInputType.emailAddress,
                             decoration: new InputDecoration(
                               hintText: 'E-mail',
                             ),
