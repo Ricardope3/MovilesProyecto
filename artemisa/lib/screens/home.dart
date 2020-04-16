@@ -165,7 +165,7 @@ class LocalListing extends StatelessWidget {
         PageRouteBuilder(
           pageBuilder: (context, a, b) => Listing(
             link: link,
-            tag: link + "local",
+            tag: link + 'local'
           ),
         ),
       ),
