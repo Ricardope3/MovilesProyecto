@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AuthRepository {
-  String _baseUrl = "http://localhost:80/api/";
+  String _baseUrl = "http://192.168.100.6/api/";
   String _register = "users/register";
   String _login = "users/login";
   Map<String, String> _headers = {"Content-Type": "application/json"};

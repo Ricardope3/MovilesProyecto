@@ -1,10 +1,12 @@
+import 'package:Artemisa/models/property.dart';
 import 'package:flutter/material.dart';
+import 'package:Artemisa/repositories/property_repository.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Listing extends StatelessWidget {
-  final String link, tag;
+  final String link, id;
 
-  const Listing({this.link, this.tag});
+  const Listing({this.link, this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class Listing extends StatelessWidget {
             width: width,
           ),
           Hero(
-            tag: tag,
+            tag: this.id,
             child: ClipRRect(
               child: Image.network(
                 link,
@@ -100,7 +102,7 @@ class Listing extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                PropertyDetails()
+                                _propertyDetailsBuilder(this.id)
                               ],
                             ),
                           ),
@@ -151,7 +153,36 @@ class Listing extends StatelessWidget {
   }
 }
 
+Widget _propertyDetailsBuilder(String id) {
+  return FutureBuilder(
+    future: PropertyRepository().details(id),
+    builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        return Text("ERROR WHILE RETRIEVING DATA");
+      }
+      if (!snapshot.hasData) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.symmetric(vertical: 40),
+                child: CircularProgressIndicator())
+          ],
+        );
+      }
+      final DetailedProperty property = snapshot.data;
+      return PropertyDetails(
+        property: property,
+      );
+    },
+  );
+}
+
 class PropertyDetails extends StatelessWidget {
+  final DetailedProperty property;
+
+  const PropertyDetails({this.property});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -160,7 +191,7 @@ class PropertyDetails extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "Cuarto en Jardín Real",
+            this.property.title,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: const Color(0xff53817f),
@@ -176,7 +207,7 @@ class PropertyDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Guadalajara, Jalisco",
+                      this.property.neighborhood,
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         color: const Color(0xff9aacaa),
@@ -184,7 +215,7 @@ class PropertyDetails extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Hosted by Diego and Oscar",
+                      "Hosted by ${this.property.host['name']}",
                       style: TextStyle(
                         color: const Color(0xff9aacaa),
                         fontSize: 16,
@@ -193,7 +224,7 @@ class PropertyDetails extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "\$5,000",
+                  "\$${this.property.price}",
                   style: TextStyle(
                     color: Colors.green,
                     fontSize: 15,

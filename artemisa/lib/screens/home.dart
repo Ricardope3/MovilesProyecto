@@ -1,3 +1,5 @@
+import 'package:Artemisa/models/property.dart';
+import 'package:Artemisa/repositories/property_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -130,9 +132,7 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            Column(
-              children: _localListingBuilder(casas),
-            ),
+            _localListingBuilder()
           ],
         ),
       ),
@@ -140,22 +140,54 @@ class Home extends StatelessWidget {
   }
 }
 
-List<Widget> _localListingBuilder(List<String> casas) {
-  List<Widget> localListings = [];
-  for (var i = 0; i < casas.length; i++) {
-    localListings.add(
-      LocalListing(
-        link: casas[i],
-      ),
-    );
-  }
-  return localListings;
+Widget _localListingBuilder() {
+  return FutureBuilder(
+    future: PropertyRepository().listing(),
+    builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 40),
+              child: Text(
+                "Ocurrió un error al obtener las propiedades :(",
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 14,
+                ),
+              ),
+            )
+          ],
+        );
+      }
+      if (!snapshot.hasData) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.symmetric(vertical: 40),
+                child: CircularProgressIndicator())
+          ],
+        );
+      }
+      final List<LocalListing> properties =
+          List.from(snapshot.data.map((Property property) => LocalListing(
+                link: property.pictures[0],
+                title: property.title,
+                id: property.id,
+                price: property.monthlyPrice,
+              )));
+      return Column(children: properties);
+    },
+  );
 }
 
 class LocalListing extends StatelessWidget {
-  const LocalListing({this.link});
+  const LocalListing({this.id, this.link, this.title, this.price});
 
-  final String link;
+  final String link, title, id;
+  final double price;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -163,10 +195,7 @@ class LocalListing extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, a, b) => Listing(
-            link: link,
-            tag: link + 'local'
-          ),
+          pageBuilder: (context, a, b) => Listing(link: link, id: this.id),
         ),
       ),
       child: Container(
@@ -178,7 +207,7 @@ class LocalListing extends StatelessWidget {
               color: Colors.black.withOpacity(0.12),
               spreadRadius: -20,
               blurRadius: 20,
-              offset: Offset(0,12),              
+              offset: Offset(0, 12),
             ),
           ],
         ),
@@ -198,7 +227,7 @@ class LocalListing extends StatelessWidget {
                 ),
               ),
               child: Hero(
-                tag: link + "local",
+                tag: this.id,
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(
                     Radius.circular(40),
@@ -255,7 +284,7 @@ class LocalListing extends StatelessWidget {
                         height: 7,
                       ),
                       Text(
-                        "Casa en San Isidro",
+                        this.title,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 19,
@@ -265,7 +294,7 @@ class LocalListing extends StatelessWidget {
                         height: 7,
                       ),
                       Text(
-                        "\$5000",
+                        "\$$price",
                         style: TextStyle(
                           color: Colors.green,
                           fontSize: 15,
@@ -304,7 +333,7 @@ class PopularListing extends StatelessWidget {
         PageRouteBuilder(
           pageBuilder: (context, a, b) => Listing(
             link: casas[index],
-            tag: casas[index] + "popular",
+            id: casas[index] + "popular",
           ),
         ),
       ),
