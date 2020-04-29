@@ -1,4 +1,4 @@
-# artemisa-mobile
+# Proyecto moviles
 * Run flutter pub get
 * To open iOS simulator run ```open -a Simulator```
 * To run without debuging use ```ctrl F5```
